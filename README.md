@@ -1,7 +1,6 @@
 # ECOMMERCE
 
-Hi, my name is Sanh. 
-Welcome to my sample project.
+Hi, my name is Sanh, welcome to my sample project.
 
 Here is the feature list:
 
