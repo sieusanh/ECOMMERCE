@@ -3,6 +3,8 @@
 Hi, my name is Sanh. Welcome to my sample project
 
 Feature List:
+
+Authentication
   1. Signup
     + Validated information
     + Password hashed
@@ -11,7 +13,7 @@ Feature List:
     + 
   3. Logut 
 
-  I. Product
+Product
     1. View product list (Common user)
     2. Create new product (Admin)
     3. Update product (Admin)
