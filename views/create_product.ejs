@@ -1,0 +1,83 @@
+<%- include('partials/header'); -%>
+
+<br><img id="myImg" src="#">
+
+<form>
+    <h2>Create new product</h2>
+    <label for="title">Title</label>
+    <input type="text" name="title" required />
+    <label for="desc">Description</label>
+    <input type="text" name="desc" required />
+    <label for="image">Image</label>
+    <input type='file' />
+    <label for="categories">categories</label>
+    <input type="text" name="categories" required />
+    <label for="size">Size</label>
+    <input type="text" name="size" required />
+    <label for="color">Color</label>
+    <input type="text" name="color" required />
+    <label for="price">Price</label>
+    <input type="text" name="price" required />
+    <button>Submit</button>
+</form>
+
+<div id="success" style="display: none; text-align: center;">
+    <h2>Register successfully</h2>
+    <a href="/api/auth/login">
+        <h2>Log in to begin</h2>
+    </a>
+</div>
+
+<script>
+
+    window.addEventListener('load', function() {
+        document.querySelector('input[type="file"]').addEventListener('change', function() {
+            if (this.files && this.files[0]) {
+                var img = document.querySelector('img')
+                img.onload = () => {
+                    URL.revokeObjectURL(img.src)  // no longer needed, free memory
+                }
+    
+                img.src = URL.createObjectURL(this.files[0]); // set src to blob url
+            }
+        })
+    })
+
+    const form = document.querySelector('form')
+    form.addEventListener('submit', async (event) => {
+        event.preventDefault()
+
+        // reset errors
+        usernameError.textContent = ''
+        emailError.textContent = ''
+        passwordError.textContent = ''
+
+        // get the values
+        const username = form.username.value
+        const password = form.password.value
+        const email = form.email.value
+
+        try {
+            const res = await fetch('/api/auth/signup', {
+                method: 'POST',
+                body: JSON.stringify({ username, password, email }),
+                headers: { 'Content-Type': 'application/json'}
+            })
+            const data = await res.json()
+            if (data.errors) {
+                usernameError.textContent = data.errors.username ?? ''
+                passwordError.textContent = data.errors.password ?? ''
+                emailError.textContent = data.errors.email ?? ''
+            }
+            if (data.user) {
+                form.style.display = "none"
+                successDiv.style.display = "block"
+            }
+        } 
+        catch (err) {
+            console.log(err)
+        }
+    })
+</script>
+
+<%- include('partials/footer'); -%>
