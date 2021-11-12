@@ -1,5 +1,7 @@
 # ECOMMERCE
 
+Hi, my name is Sanh. Welcome to my sample project
+
 Feature List:
   1. Signup
     + Validated information
