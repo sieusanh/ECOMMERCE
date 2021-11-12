@@ -1,12 +1,13 @@
 # ECOMMERCE
 
 Feature List:
-- Common User Authentication
   1. Signup
-  2. Login (JWT)
+    + Validated information
+    + Password hashed
+  2. Login
+    + Stateless JWT authentication
+    + 
   3. Logut 
-
-- Authorization
 
   I. Product
     1. View product list (Common user)
