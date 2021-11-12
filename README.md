@@ -10,7 +10,7 @@ Here is the feature list:
     + Validated information\
     + Password hashed
   2. Login\
-    + Stateless JWT authentication\
+    + Stateless JWT authentication
   3. Logut
 
 **User**
