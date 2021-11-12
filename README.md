@@ -16,12 +16,12 @@ Here is the feature list:
 **User**
 
 **Product**
-  1. View product list (Common user)
+  1. View product list (Guest)
   2. Create new product (Admin)
   3. Update product (Admin)
   4. Delete product (Admin)
-  5. Get product with id (Common user)
-  6. Get all product (Common user)
+  5. Get product with id (Guest)
+  6. Get all product (Guest)
     
 **Order**
 
