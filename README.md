@@ -4,13 +4,14 @@ Hi, my name is Sanh, welcome to my sample project.
 
 Here is the application feature list:
 
-**Authentication**1. Signup\
+**Authentication**
+  1. Signup\
     + Validated information\
     + Password hashed
   2. Login\
     + Stateless JWT authentication
   3. Logut
- 
+ ------------------
 **User**
   1. Update user (User)
   2. Delete user (User)
