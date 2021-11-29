@@ -1,5 +1,4 @@
 # ECOMMERCE
-<<<<<<< HEAD
 
 Hi, my name is Sanh, welcome to my sample project.
 
@@ -27,6 +26,4 @@ Here is the feature list:
 
 **Cart**
 
-**Payment**
 =======
->>>>>>> 012efa50b84cebba595267d9c338a917e3baf242
