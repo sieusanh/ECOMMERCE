@@ -2,7 +2,7 @@
 
 Hi, my name is Sanh, welcome to my sample project.
 
-Here is the feature list:
+Here is the application feature list:
 
 **Authentication**
   1. Signup\
