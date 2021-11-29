@@ -2,24 +2,24 @@
 const Cart = require('../models/Cart')
 
 const createCart = async (req, res) => {
-    const newCart = new Cart(req.body)
+    const {accessToken, ...others} = req.body
+    const newCart = new Cart(others)
 
     try {
         const savedCart = await newCart.save()
-        res.status(200).json(savedCart)
+        res.status(200).json(savedCart._doc)
     } catch (err) {
         res.status(500).json(err)
     }
 }
 
 const updateCart = async (req, res) => {
+    const {userId, product} = req.body
     try {
-        const updatedCart = await Cart.findByIdAndUpdate(
-            req.params.id, 
-            {$set: req.body}, 
-            {new: true}
-        )
-        res.status(200).json(updatedCart)
+        const cartToUpdate = await Cart.findOne({userId})
+        cartToUpdate.products.push(product)
+        const savedCart = await cartToUpdate.save()
+        res.status(200).json(savedCart._doc)
     } catch(err) {
         res.status(500).json(err)
     }
@@ -34,10 +34,12 @@ const deleteCart = async (req, res) => {
     }
 }
 
-const getUserOfCart = async (req, res) => {
+const getCartByUserId = async (req, res) => {
     try {
         const cart = await Cart.findOne({userId: req.params.userId})
-        res.status(200).json(Cart)
+        if (!cart)
+            return res.status(404).json('Cart not found')
+        res.status(200).json(cart._doc)
     } catch(err) {
         res.status(500).json(err)
     }
@@ -54,5 +56,5 @@ const getAllCart = async (req, res) => {
 
 module.exports = {
     createCart, updateCart, deleteCart, 
-    getUserOfCart, getAllCart
+    getCartByUserId, getAllCart
 }

@@ -44,7 +44,7 @@ const UserSchema = new mongoose.Schema(
 UserSchema.pre('save', async function(next) {
     // "this" keyword prefer to the instance of User Model
     // before the save event happens
-    console.log('user about to be created & saved', this)
+    // console.log('user about to be created & saved', this)
 
     const salt = await bcrypt.genSalt()
     this.password = await bcrypt.hash(this.password, salt)
@@ -55,7 +55,7 @@ UserSchema.pre('save', async function(next) {
 // fire a function after document saved to db
 // this happens after the save event
 UserSchema.post('save', function(doc, next) {
-    console.log('new user was created & saved', doc)
+    // console.log('new user was created & saved', doc)
     next()
 })
 

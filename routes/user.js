@@ -1,23 +1,28 @@
-'use strict'
+
 const router = require('express').Router()
 const {userAuthentication} = require('../middlewares/Authentication')
-const {userOrAdminAuthorization, adminAuthorization} = require('../middlewares/Authorization')
+const {adminAuthorization} = require('../middlewares/Authorization')
 const {updateUserById, deleteUserById, getUserById, 
     getAllUser, getUserStats} = require('../controllers/userController')
 
 // UPDATE
-router.put('/:id', userAuthentication, userOrAdminAuthorization, updateUserById)
+router.get('/update', (req, res) => res.render('./user/update_user'))
+router.put('/:id', userAuthentication, updateUserById)
 
 // DELETE
-router.delete('/:id', userAuthentication, userOrAdminAuthorization, deleteUserById)
+router.get('/delete', (req, res) => res.render('./user/delete_user'))
+router.delete('/:id', userAuthentication, deleteUserById)
 
 // GET
-router.get('/find/:id', userAuthentication, adminAuthorization, getUserById)
+router.get('/find', (req, res) => res.render('./user/find_user_by_id'))
+router.post('/find/:id', userAuthentication, adminAuthorization, getUserById)
 
 // GET ALL USER
-router.get('/', userAuthentication, adminAuthorization, getAllUser)
+router.get('/', (req, res) => res.render('./user/find_all_user'))
+router.post('/', userAuthentication, adminAuthorization, getAllUser)
 
 // GET USER STATS
-router.get('/stats', userAuthentication, adminAuthorization, getUserStats)
+router.get('/stats', (req, res) => res.render('./user/stats'))
+router.post('/stats', userAuthentication, adminAuthorization, getUserStats)
 
 module.exports = router

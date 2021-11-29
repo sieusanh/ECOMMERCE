@@ -3,12 +3,12 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const dotenv = require('dotenv')
+
 const authRoute = require('./routes/auth')
 const userRoute = require('./routes/user')
 const productRoute = require('./routes/product')
 const cartRoute = require('./routes/cart')
 const orderRoute = require('./routes/order')
-const {userAuthentication} = require('./middlewares/Authentication')
 
 const app = express()
 dotenv.config()
@@ -37,5 +37,8 @@ app.use('/api/users', userRoute)
 app.use('/api/products', productRoute)
 app.use('/api/carts', cartRoute)
 app.use('/api/orders', orderRoute)
+
+// public resources
+app.use('/images', express.static('images'))
 
 app.get('/', (req, res) => res.render('home'))

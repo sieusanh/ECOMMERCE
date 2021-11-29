@@ -2,23 +2,25 @@
 const Product = require('../models/Product')
 
 const createProduct = async (req, res) => {
-    const {image, price, ...others} = req.body
-    
-    const newProduct = new Product({image, price, ...others})
+    let {price, accessToken, ...others} = req.body
+    price = parseFloat(price)
+    const newProduct = new Product({price, ...others})
 
     try {
         const savedProduct = await newProduct.save()
-        res.status(200).json(savedProduct)
+        // res.status(200).json(savedProduct)
+        res.status(200).json(savedProduct._doc)
     } catch (err) {
         res.status(500).json(err)
     }
 }
 
 const updateProduct = async (req, res) => {
+    const {accessToken, ...others} = req.body
     try {
         const updatedProduct = await Product.findByIdAndUpdate(
             req.params.id, 
-            {$set: req.body}, 
+            {$set: others}, 
             {new: true}
         )
         res.status(200).json(updatedProduct)
@@ -30,7 +32,7 @@ const updateProduct = async (req, res) => {
 const deleteProduct = async (req, res) => {
     try {
         await Product.findByIdAndDelete(req.params.id)
-        res.status(200).json('Product has been deleted...')
+        res.status(200).json('Product has been deleted.')
     } catch(err) {
         res.status(500).json(err)
     }
@@ -39,7 +41,9 @@ const deleteProduct = async (req, res) => {
 const getProductById = async (req, res) => {
     try {
         const product = await Product.findById(req.params.id)
-        res.status(200).json(product)
+        if (!product)
+            return res.status(404).json('Product not found')
+        res.status(200).json(product._doc)
     } catch(err) {
         res.status(500).json(err)
     }
@@ -63,7 +67,9 @@ const getAllProduct = async (req, res) => {
         } else {
             products = await Product.find()
         }
-     
+        for (let index in products) 
+            products[index] = products[index]._doc
+            
         res.status(200).json(products)
     } catch(err) {
         res.status(500).json(err)

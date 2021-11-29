@@ -70,7 +70,7 @@ const login_post = async (req, res) => {
         userObj.id = user._doc._id
         userObj.username = user._doc.username
         userObj.isAdmin = user._doc.isAdmin
-
+        
         const {accessToken, exp} = generateAccessToken(userObj)
         res.status(200).json({user: userObj, exp, accessToken})
     } catch (err) {

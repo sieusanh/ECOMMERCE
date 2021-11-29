@@ -1,23 +1,28 @@
 
 const router = require('express').Router()
 const {userAuthentication} = require('../middlewares/Authentication')
-const {userOrAdminAuthorization, adminAuthorization} = require('../middlewares/Authorization')
+const {adminAuthorization} = require('../middlewares/Authorization')
 const {createCart, updateCart, deleteCart, 
-    getUserOfCart, getAllCart} = require('../controllers/cartController')
+    getCartByUserId, getAllCart} = require('../controllers/cartController')
+
+router.get('/checkCart', (req, res) => res.render('./cart/cart'))    
+router.post('/checkCart', userAuthentication, (req, res) => 
+    res.status(200).json({message: 'You\'re now authenticated'})
+)
 
 // CREATE
-router.post('/', userAuthentication, createCart)
+router.post('/create', userAuthentication, createCart)
 
 // UPDATE
-router.put('/:id', userAuthentication, userOrAdminAuthorization, updateCart)
+router.put('/:id', userAuthentication, updateCart)
 
 // DELETE
 router.delete('/:id', userAuthentication, adminAuthorization, deleteCart)
 
-// GET USER CART
-router.get('/find/:userId', userAuthentication, userOrAdminAuthorization, getUserOfCart)
-
+// GET CART BY USER ID
+router.post('/find/:userId', userAuthentication, getCartByUserId)
+ 
 // GET ALL CART
-router.get('/', userAuthentication, adminAuthorization, getAllCart)
+router.post('/', userAuthentication, adminAuthorization, getAllCart)
 
 module.exports = router

@@ -1,7 +1,7 @@
-"use strict"
+
 const router = require('express').Router()
 const {userAuthentication} = require('../middlewares/Authentication')
-const {userOrAdminAuthorization, adminAuthorization} = require('../middlewares/Authorization')
+const {adminAuthorization} = require('../middlewares/Authorization')
 const {createOrder, updateOrder, deleteOrder, 
     getOrderByUserId, getAllOrder, getMonthlyIncome} = require('../controllers/orderController')
 
@@ -15,7 +15,7 @@ router.put('/:id', userAuthentication, adminAuthorization, updateOrder)
 router.delete('/:id', userAuthentication, adminAuthorization, deleteOrder)
 
 // GET USER ORDERS
-router.get('/find/:userId', userAuthentication, userOrAdminAuthorization, getOrderByUserId)
+router.get('/find/:userId', userAuthentication, getOrderByUserId)
 
 // GET ALL 
 router.get('/', userAuthentication, adminAuthorization, getAllOrder)
