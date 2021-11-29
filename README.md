@@ -25,5 +25,3 @@ Here is the feature list:
 **Order**
 
 **Cart**
-
-=======
